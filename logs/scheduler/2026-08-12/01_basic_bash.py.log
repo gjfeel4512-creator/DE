@@ -492,3 +492,8 @@ IndentationError: unexpected indent
 [2026-08-12T05:10:05.348+0000] {logging_mixin.py:190} INFO - [2026-08-12T05:10:05.348+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/01_basic_bash.py
 [2026-08-12T05:10:05.360+0000] {processor.py:927} WARNING - No viable dags retrieved from /opt/airflow/dags/01_basic_bash.py
 [2026-08-12T05:10:05.373+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/01_basic_bash.py took 0.035 seconds
+[2026-08-12T05:10:36.137+0000] {processor.py:186} INFO - Started process (PID=4698) to work on /opt/airflow/dags/01_basic_bash.py
+[2026-08-12T05:10:36.140+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/01_basic_bash.py for tasks to queue
+[2026-08-12T05:10:36.143+0000] {logging_mixin.py:190} INFO - [2026-08-12T05:10:36.143+0000] {dagbag.py:587} INFO - Filling up the DagBag from /opt/airflow/dags/01_basic_bash.py
+[2026-08-12T05:10:36.162+0000] {processor.py:927} WARNING - No viable dags retrieved from /opt/airflow/dags/01_basic_bash.py
+[2026-08-12T05:10:36.180+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/01_basic_bash.py took 0.052 seconds
