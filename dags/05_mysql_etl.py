@@ -58,12 +58,14 @@ def _extract(**kwargs):
   return file_full_path
 
 def _transform(**kwargs):
-  # 1. _extract가 전달한 내용 Xcom을 통해서 획득
-  ti             = kwargs["ti"]
-  json_file_path = ti.xcom_pull(task_ids="extract_task")
-  logging.info(f'전달한 데이터 파일 경로{json_file_path}')
-  
+  # 1. _extract가 전달한 내용 XCom을 통해서 획득
+  ti              = kwargs["ti"]
+  json_file_path  = ti.xcom_pull(task_ids="extract")
+  logging.info( f'전달한 데이터 파일 경로 {json_file_path}'  )
+
   pass
+
+
 def _load(**kwargs):
   pass
 
