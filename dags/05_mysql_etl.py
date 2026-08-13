@@ -25,6 +25,9 @@ import os
 # 실습 기본 구성 틀 작성
 # 2. 전역변수
 KST = pendulum.timezone("Asia/Seoul")
+# extract 한 데이터를 임시로 저장하는 위치
+DATA_PATH = "/opt/airflow/dags/data"
+os.makedirs(DATA_PATH, exist_ok=True)
 
 # 콜백함수
 def _extract(**kwargs):
@@ -35,15 +38,25 @@ def _extract(**kwargs):
   # 더미 데이터 구성 = [ {}, {}, ... ]
   data = [
     {
-      "sensor_id"   : f"SENSOR_{i+1}",  # 장비 ID
-      "timestamp"   : datetime.now().strftime("%Y-%m-%d %H:%M:%S"), #데이터 생성시간
-      "temperture"  : round( random.uniform(20.0,150.0),2),         #용도 허용범위
-      "status"      : "on"                                          # onor off
+      "sensor_id"   : f"SENSOR_{i+1}",      # 장비 ID
+      "timestamp"   : datetime.now().strftime("%Y-%m-%d %H:%M:%S"), # 데이터 생성 시간
+      "temperature" : round( random.uniform(20.0, 150.0), 2),       # 온도 허용 범위 
+      "status"      : "on"                  # on or off
     }
     for i in range(10)
   ]
-  logging.info(f'더미데이터{data}')
-  pass
+  # 데이터를 다음 task에 전달 -> 데이터 전달 or 데이터 저장(리눅스 경로상)후 path 전달
+  # 파일명 sensor_data_20260813.json : 20260813=>"ds_nodash" 활용
+  # /opt/airflow/dags/data/sensor_data_DAG수행일.json
+  file_full_path = f"{DATA_PATH}/sensor_data_{kwargs['ds_nodash']}.json"
+  with open(file_full_path, 'w') as f:
+    json.dump( data, f )
+  
+  logging.info( f'extract 한 데이터 {data}'  )
+  logging.info( f'extract 한 데이터 파일 경로 {file_full_path}'  )
+  # XCOM을 통해 전달
+  return file_full_path
+
 def _transform(**kwargs):
   pass
 def _load(**kwargs):
